@@ -1,0 +1,884 @@
+@prefix : <http://www.amusementpark.com#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix xml: <http://www.w3.org/XML/1998/namespace>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix dc: <http://purl.org/dc/terms/>.
+@prefix dbo: <http://dbpedia.org/ontology/>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix dbr: <http://dbpedia.org/resource/>.
+@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+@base <http://www.amusementpark.com>.
+
+<http://www.amusementpark.com> rdf:type owl:Ontology;
+dc:created "2019"@en;
+dc:creator "Daphné Pagnard & Aurore Nguyen"@en;
+dc:title "Ontology for European Amusement Park"@en;
+rdfs:comment "This ontology is developed for modelling data for Amusement Park (specially in Europe)"@en.
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/created
+dc:created rdf:type owl:AnnotationProperty;
+rdfs:isDefinedBy "Dublin Core"@en;
+skos:definition "Date of creation of the resource (from Dublin Core)"@en;
+skos:prefLabel "Created"@en.
+
+
+###  http://purl.org/dc/terms/creator
+dc:creator rdf:type owl:AnnotationProperty;
+rdfs:isDefinedBy "Dublin Core"@en;
+skos:definition "An entity responsible for making the resource (from DublinCore)"@en;
+skos:prefLabel "Creator"@en.
+
+
+###  http://purl.org/dc/terms/title
+dc:title rdf:type owl:AnnotationProperty;
+rdfs:isDefinedBy "Dublin Core"@en;
+skos:definition "A name given to the resource (from Dublin Core)"@en;
+skos:prefLabel "Title"@en.
+
+
+###  http://www.w3.org/2000/01/rdf-schema#isDefinedBy
+rdfs:isDefinedBy skos:prefLabel "is defined by"@en.
+
+
+###  http://www.w3.org/2004/02/skos/core#altLabel
+skos:altLabel rdf:type owl:AnnotationProperty;
+rdfs:isDefinedBy "SKOS"@en.
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty;
+rdfs:isDefinedBy "SKOS"@en;
+skos:prefLabel "Definition"@en.
+
+
+###  http://www.w3.org/2004/02/skos/core#example
+skos:example rdf:type owl:AnnotationProperty;
+rdfs:isDefinedBy "SKOS"@en;
+skos:prefLabel "Example"@en.
+
+
+###  http://www.w3.org/2004/02/skos/core#prefLabel
+skos:prefLabel rdf:type owl:AnnotationProperty;
+rdfs:isDefinedBy "SKOS"@en.
+
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  https://www.w3.org/TR/xmlschema11-2/#gYear
+xml:gYear rdf:type rdfs:Datatype.
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://dbpedia.org/ontology/birthPlace
+dbo:birthPlace rdf:type owl:ObjectProperty,
+owl:FunctionalProperty,
+owl:IrreflexiveProperty;
+rdfs:domain foaf:Person;
+rdfs:range dbo:Place;
+rdfs:isDefinedBy "DBpedia"@en;
+skos:altLabel "lieu de naissance"@fr;
+skos:prefLabel "birth place"@en.
+
+
+###  http://dbpedia.org/ontology/deathPlace
+dbo:deathPlace rdf:type owl:ObjectProperty,
+owl:FunctionalProperty,
+owl:IrreflexiveProperty;
+rdfs:domain foaf:Person;
+rdfs:range dbo:Place;
+rdfs:isDefinedBy "DBpedia"@en;
+skos:altLabel "lieu de décès"@fr;
+skos:prefLabel "death place"@en.
+
+
+###  http://dbpedia.org/ontology/nationality
+dbo:nationality rdf:type owl:ObjectProperty,
+owl:FunctionalProperty,
+owl:IrreflexiveProperty;
+rdfs:domain foaf:Person;
+rdfs:range dbo:Country;
+rdfs:isDefinedBy "DBpedia"@en;
+skos:altLabel "nationalité"@fr.
+
+
+###  http://dbpedia.org/ontology/owner
+dbo:owner rdf:type owl:ObjectProperty,
+owl:IrreflexiveProperty;
+rdfs:domain :AmusementPark;
+rdfs:range foaf:Organization;
+rdfs:isDefinedBy "DBpedia"@en;
+skos:definition "Used as if meaning: owned by, has as its owner (from DBpedia)"@en.
+
+
+###  http://www.amusementpark.com#directedBy
+:directedBy rdf:type owl:ObjectProperty;
+rdfs:domain :AmusementPark;
+rdfs:range :CEO;
+skos:prefLabel "directed by"@en.
+
+
+###  http://www.amusementpark.com#inventedBy
+:inventedBy rdf:type owl:ObjectProperty,
+owl:IrreflexiveProperty;
+rdfs:domain :AmusementPark;
+rdfs:range :Inventor;
+skos:prefLabel "invented by"@en.
+
+
+###  http://www.amusementpark.com#locatedIn
+:locatedIn rdf:type owl:ObjectProperty,
+owl:ReflexiveProperty;
+rdfs:domain [ rdf:type owl:Class;
+owl:unionOf (dbo:ArchitecturalStructure dbo:Place :AmusementPark)];
+rdfs:range dbo:Place;
+skos:prefLabel "located in"@en.
+
+
+###  http://www.amusementpark.com#received
+:received rdf:type owl:ObjectProperty,
+owl:IrreflexiveProperty;
+rdfs:domain dbo:ArchitecturalStructure;
+rdfs:range dbo:Award.
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://dbpedia.org/ontology/area
+dbo:area rdf:type owl:DatatypeProperty,
+owl:FunctionalProperty;
+rdfs:domain :AmusementPark;
+rdfs:range xsd:nonNegativeInteger;
+rdfs:isDefinedBy "DBpedia"@en;
+skos:definition "The area of the thing in square meters (from DBpedia)"@en.
+
+
+###  http://dbpedia.org/ontology/birthDate
+dbo:birthDate rdf:type owl:DatatypeProperty,
+owl:FunctionalProperty;
+rdfs:domain foaf:Person;
+rdfs:range xml:gYear;
+rdfs:isDefinedBy "DBpedia"@en;
+skos:altLabel "date de naissance"@fr;
+skos:prefLabel "birth date"@en.
+
+
+###  http://dbpedia.org/ontology/buildingEndYear
+dbo:buildingEndYear rdf:type owl:DatatypeProperty,
+owl:FunctionalProperty;
+rdfs:domain :AmusementPark;
+rdfs:range xml:gYear;
+rdfs:isDefinedBy "DBpedia"@en;
+skos:prefLabel "building end year"@en.
+
+
+###  http://dbpedia.org/ontology/buildingStartYear
+dbo:buildingStartYear rdf:type owl:DatatypeProperty,
+owl:FunctionalProperty;
+rdfs:domain :AmusementPark;
+rdfs:range xml:gYear;
+rdfs:isDefinedBy "DBpedia"@en;
+skos:prefLabel "building start year"@en.
+
+
+###  http://dbpedia.org/ontology/capacity
+dbo:capacity rdf:type owl:DatatypeProperty,
+owl:FunctionalProperty;
+rdfs:domain :AmusementPark;
+rdfs:range xsd:nonNegativeInteger;
+rdfs:isDefinedBy "DBpedia"@en;
+skos:altLabel "capacité"@fr;
+skos:definition "Number of people who can be served by a Train or other service; or participate in a SoccerClub, CricketTeam, etc (from DBpedia)"@en.
+
+
+###  http://dbpedia.org/ontology/deathDate
+dbo:deathDate rdf:type owl:DatatypeProperty,
+owl:FunctionalProperty;
+rdfs:domain foaf:Person;
+rdfs:range xml:gYear;
+rdfs:isDefinedBy "DBpedia"@en;
+skos:altLabel "date de décès"@fr;
+skos:prefLabel "death date"@en.
+
+
+###  http://dbpedia.org/ontology/formerName
+dbo:formerName rdf:type owl:DatatypeProperty;
+rdfs:domain :AmusementPark;
+rdfs:range xsd:string;
+rdfs:isDefinedBy "DBpedia"@en;
+skos:prefLabel "former name"@en.
+
+
+###  http://dbpedia.org/ontology/mascot
+dbo:mascot rdf:type owl:DatatypeProperty;
+rdfs:domain :AmusementPark;
+rdfs:range xsd:string;
+rdfs:isDefinedBy "DBpedia"@en;
+skos:altLabel "mascotte"@fr;
+skos:definition "Animal, poupée, objets divers servant de porte-bonheur ou d’emblème (from DBpedia)"@fr ,"Something, especially a person or animal, used to symbolize a sports team, company, organization or other group (from DBpedia)"@en.
+
+
+###  http://dbpedia.org/ontology/visitorsPerYear
+dbo:visitorsPerYear rdf:type owl:DatatypeProperty,
+owl:FunctionalProperty;
+rdfs:domain :AmusementPark;
+rdfs:range xsd:float;
+rdfs:isDefinedBy "DBpedia"@en;
+skos:definition "Visitors per year (in million)"@en;
+skos:prefLabel "visitors per year"@en.
+
+
+###  http://www.amusementpark.com#hasWebsite
+:hasWebsite rdf:type owl:DatatypeProperty,
+owl:FunctionalProperty;
+rdfs:domain [ rdf:type owl:Class ;
+owl:unionOf ( :AmusementPark foaf:Organization) ] ;
+rdfs:range xsd:anyURI.
+
+
+###  http://www.amusementpark.com#numberofAttractions
+:numberofAttractions rdf:type owl:DatatypeProperty,
+owl:FunctionalProperty;
+rdfs:domain :AmusementPark;
+rdfs:range xsd:nonNegativeInteger;
+rdfs:isDefinedBy "number of attractions"@en.
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://dbpedia.org/ontology/ArchitecturalStructure
+dbo:ArchitecturalStructure rdf:type owl:Class;
+rdfs:isDefinedBy "DBpedia"@en;
+skos:definition "An architectural structure is a human-made, free-standing, immobile outdoor construction (from DBpedia)"@en;
+skos:example "Eiffel Tower, Colosseumn, Sydney Opera House, etc."@en;
+skos:prefLabel "Architectural structure"@en.
+
+
+###  http://dbpedia.org/ontology/Award
+dbo:Award rdf:type owl:Class;
+rdfs:subClassOf owl:Thing;
+rdfs:isDefinedBy "DBpedia"@en;
+skos:definition "A prize or a sum of money that a person or organization is given for an achievement (from Cambridge Dictionary)"@en;
+skos:example "Nobel prize, pulitzer prize, etc."@en.
+
+
+###  http://dbpedia.org/ontology/City
+dbo:City rdf:type owl:Class;
+rdfs:subClassOf dbo:Place;
+rdfs:isDefinedBy "DBpedia"@en;
+skos:altLabel "Città"@it, "Ville"@fr;
+skos:definition "A relatively large and permanent settlement, particularly a large urban settlement (from DBpedia)"@en;
+skos:example "Bruxelles, Milan, Manchester, Tours, London, etc."@en;
+skos:prefLabel "City"@en.
+
+
+###  http://dbpedia.org/ontology/Country
+dbo:Country rdf:type owl:Class;
+rdfs:subClassOf dbo:Place;
+rdfs:isDefinedBy "DBpedia"@en;
+skos:altLabel "Paese"@it, "Pays"@fr;
+skos:definition "An area of land that has its own government, army, etc.(from Cambridge Dictionary)"@en;
+skos:example "France, Denmark, Germany, etc."@en;
+skos:prefLabel "Country"@en.
+
+
+###  http://dbpedia.org/ontology/Place
+dbo:Place rdf:type owl:Class;
+rdfs:subClassOf owl:Thing;
+rdfs:isDefinedBy "DBpedia"@en;
+skos:altLabel "Lieu"@fr, "Luogo"@it;
+skos:definition "Immobile things or locations (from DPpedia)"@en;
+skos:example "Cities or countries in the sense of physical extents (and not in the sense of institutional organisations)"@en;
+skos:prefLabel "Place"@en.
+
+
+###  http://dbpedia.org/ontology/RollerCoaster
+dbo:RollerCoaster rdf:type owl:Class;
+rdfs:subClassOf dbo:ArchitecturalStructure;
+rdfs:isDefinedBy "DBpedia"@en;
+skos:definition "An exciting entertainment in an amusement park, like a fast train that goes up and down very steep slopes and around very sudden bends (from Cambridge Dictionary)"@en;
+skos:example "Nitro, Runaway Mine Train, El toro, etc."@en;
+skos:prefLabel "Roller coaster"@en.
+
+
+###  http://dbpedia.org/ontology/WaterRide
+dbo:WaterRide rdf:type owl:Class;
+rdfs:subClassOf dbo:ArchitecturalStructure;
+rdfs:isDefinedBy "DBpedia"@en;
+skos:definition "Water rides are amusement rides that are set over water (from Wikipedia)"@en;
+skos:example "Rapido, Lagoon, The Waves, etc."@en;
+skos:prefLabel "Water ride"@en.
+
+
+###  http://www.amusementpark.com#AmusementPark
+:AmusementPark rdf:type owl:Class;
+rdfs:subClassOf dbo:Place;
+skos:definition "A place where people can go to enjoy games, rides, and other activities (from Cambridge Dictionary)"@en;
+skos:example "Six Flags Magic Mountain, Futuroscope, Disneyland Paris, etc."@en;
+skos:prefLabel "Amusement Park"@en.
+
+
+###  http://www.amusementpark.com#CEO
+:CEO rdf:type owl:Class;
+rdfs:subClassOf foaf:Person;
+skos:altLabel "PDG"@fr;
+skos:definition "The person with the most important position in a compagny (from Cambridge Dictionary)"@en;
+skos:example "Jeff Bezos, Joel Mandy, Mark Zuckerberg, etc."@en;
+skos:prefLabel "Chief executive officer"@en.
+
+
+###  http://www.amusementpark.com#Inventor
+:Inventor rdf:type owl:Class;
+rdfs:subClassOf foaf:Person;
+skos:altLabel "Inventeur"@fr;
+skos:definition "Someone who designs or creates something that did not exist before (from Cambridge Dictionary)"@en;
+skos:example "Alfred Nobel, Franz Mack, etc."@en;
+skos:prefLabel "Inventor"@en.
+
+
+###  http://www.amusementpark.com#ThemePark
+:ThemePark rdf:type owl:Class;
+rdfs:subClassOf :AmusementPark;
+owl:disjointWith :WaterPark;
+skos:definition "A large, permanent area for public entertainment, with amusements, rides, food, etc., all connected with a single subject (from Cambridge Dictionary)"@en;
+skos:example "Universal Studio Florida, Magic Kingdom, Europa Park, etc."@en;
+skos:prefLabel "Theme Park"@en.
+
+
+###  http://www.amusementpark.com#WaterPark
+:WaterPark rdf:type owl:Class;
+rdfs:subClassOf :AmusementPark;
+skos:definition "An amusement park that features water play areas such as swimming pools, water slides, splash pads, water playgrounds, and lazy rivers, as well as areas for bathing, swimming, and other barefoot environments (from Wikipedia)"@en;
+skos:example "Sunway Lagoon, Aquaventure Waterpark, World Waterpark, etc."@en;
+skos:prefLabel "Water Park"@en.
+
+
+###  http://www.w3.org/2002/07/owl#Thing
+owl:Thing rdfs:isDefinedBy "OWL"@en;
+skos:definition "Thing is the most general class in the taxonomy"@en;
+skos:example "A single person, single product, single origanization, etc."@en.
+
+
+###  http://xmlns.com/foaf/0.1/Agent
+foaf:Agent rdf:type owl:Class;
+rdfs:subClassOf owl:Thing;
+rdfs:isDefinedBy "FOAF"@en;
+skos:definition "Things that do stuff (from FOAF's specification)"@en;
+skos:example "Person, group, software or physical artifact, etc."@en;
+skos:prefLabel "Agent"@en.
+
+
+###  http://xmlns.com/foaf/0.1/Organization
+foaf:Organization rdf:type owl:Class;
+rdfs:subClassOf foaf:Agent;
+rdfs:isDefinedBy "FOAF"@en;
+skos:altLabel "Organisation"@fr, "Organizzazione"@it;
+skos:definition "A kind of Agent corresponding to social instititutions such as companies, societies, etc. (from FOAF's specification)"@en;
+skos:example "The World Health Organisation"@en;
+skos:prefLabel "Organization"@en.
+
+
+###  http://xmlns.com/foaf/0.1/Person
+foaf:Person rdf:type owl:Class;
+rdfs:subClassOf foaf:Agent;
+rdfs:isDefinedBy "FOAF"@en;
+skos:altLabel "Personne"@fr;
+skos:definition "The Person class represents people. Something is a Person if it is a person. We don't nitpic about whether they're alive, dead, real, or imaginary. The Person class is a sub-class of the Agent class, since all people are considered 'agents' in FOAF (from FOAF's specification)"@en;
+skos:example "Jane Austen, Isaac Newton, Tiger Woods, Michelle Obama, Mr. Smith, etc."@en;
+skos:prefLabel "Person"@en.
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://dbpedia.org/page/Belgium
+dbr:Belgium rdf:type owl:NamedIndividual,
+dbo:Country.
+
+
+###  http://dbpedia.org/page/Germany
+dbr:Germany rdf:type owl:NamedIndividual,
+dbo:Country.
+
+
+###  http://dbpedia.org/page/Spain
+dbr:Spain rdf:type owl:NamedIndividual,
+dbo:Country.
+
+
+###  http://fr.dbpedia.org/page/Canada
+dbr:Canada rdf:type owl:NamedIndividual,
+dbo:Country;
+:locatedIn dbo:France.
+
+
+###  http://fr.dbpedia.org/page/France
+dbr:France rdf:type owl:NamedIndividual,
+dbo:Country.
+
+
+###  http://fr.dbpedia.org/page/Futuroscope
+dbo:Futuroscope rdf:type owl:NamedIndividual,
+:AmusementPark,
+:ThemePark;
+dbo:owner :Conseil_départemental_de_la_Vienne;
+:directedBy :Rodolphe_Bouin;
+:locatedIn :Chasseneuil-du-Poitou;
+:received :Thea_Award;
+dbo:area 35000;
+dbo:buildingEndYear 1987;
+dbo:formerName "Planète Futuroscope";
+dbo:visitorsPerYear 1.9;
+:hasWebsite "www.futuroscope.com".
+
+
+###  http://www.amusementpark.com#Alpenexpress_Coastiality
+:Alpenexpress_Coastiality rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure,
+dbo:RollerCoaster;
+:locatedIn :Europa_Park.
+
+
+###  http://www.amusementpark.com#Anvers
+:Anvers rdf:type owl:NamedIndividual,
+dbo:City;
+:locatedIn dbr:Belgium.
+
+
+###  http://www.amusementpark.com#Arthus
+:Arthus rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure,
+dbo:RollerCoaster;
+:locatedIn :Europa_Park.
+
+
+###  http://www.amusementpark.com#Atlantica_SuperSplash
+:Atlantica_SuperSplash rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure,
+dbo:WaterRide;
+:locatedIn :Europa_Park.
+
+
+###  http://www.amusementpark.com#Autopia
+:Autopia rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure,
+dbo:RollerCoaster;
+:locatedIn :Parc_Disneyland.
+
+
+###  http://www.amusementpark.com#Bobsleigh_Suisse
+:Bobsleigh_Suisse rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure,
+dbo:RollerCoaster;
+:locatedIn :Europa_Park.
+
+
+###  http://www.amusementpark.com#Chasseneuil-du-Poitou
+:Chasseneuil-du-Poitou rdf:type owl:NamedIndividual,
+dbo:City.
+
+
+###  http://www.amusementpark.com#Compagnie_des_Alpes
+:Compagnie_des_Alpes rdf:type owl:NamedIndividual,
+foaf:Organization.
+
+
+###  http://www.amusementpark.com#Conseil_départemental_de_la_Vienne
+:Conseil_départemental_de_la_Vienne rdf:type owl:NamedIndividual,
+foaf:Organization;
+:hasWebsite "http://www.lavienne86.fr/".
+
+
+###  http://www.amusementpark.com#Crazy_Taxi
+:Crazy_Taxi rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure,
+dbo:RollerCoaster;
+:locatedIn :Europa_Park.
+
+
+###  http://www.amusementpark.com#Dancing_Dingie
+:Dancing_Dingie rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure,
+dbo:RollerCoaster;
+:locatedIn :Europa_Park.
+
+
+###  http://www.amusementpark.com#Danse_avec_les_robots
+:Danse_avec_les_robots rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure,
+dbo:RollerCoaster;
+:locatedIn dbo:Futuroscope.
+
+
+###  http://www.amusementpark.com#Dragon_Khan
+:Dragon_Khan rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure,
+dbo:RollerCoaster;
+:locatedIn :PortAventura_Park.
+
+
+###  http://www.amusementpark.com#Dumbo_the_flying_Elephant
+:Dumbo_the_flying_Elephant rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure,
+dbo:RollerCoaster;
+:locatedIn :Parc_Disneyland.
+
+
+###  http://www.amusementpark.com#Dynamic
+:Dynamic rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure,
+dbo:RollerCoaster;
+:locatedIn dbo:Futuroscope.
+
+
+###  http://www.amusementpark.com#Eddy_Meeùs
+:Eddy_Meeùs rdf:type owl:NamedIndividual,
+:Inventor;
+dbo:birthPlace :Anvers;
+dbo:nationality dbr:Belgium;
+dbo:birthDate "1925"^^xml:gYear;
+dbo:deathDate "2001"^^xml:gYear.
+
+
+###  http://www.amusementpark.com#El_Diablo
+:El_Diablo rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure,
+dbo:RollerCoaster;
+:locatedIn :PortAventura_Park.
+
+
+###  http://www.amusementpark.com#Euro-Mir
+:Euro-Mir rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure,
+dbo:RollerCoaster;
+:locatedIn :Europa_Park.
+
+
+###  http://www.amusementpark.com#Euro-Tower
+:Euro-Tower rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure,
+dbo:RollerCoaster;
+:locatedIn :Europa_Park.
+
+
+###  http://www.amusementpark.com#Euro_Disney_SCA
+:Euro_Disney_SCA rdf:type owl:NamedIndividual,
+foaf:Organization.
+
+
+###  http://www.amusementpark.com#Europa_Park
+:Europa_Park rdf:type owl:NamedIndividual,
+:AmusementPark,
+:ThemePark;
+:inventedBy :Franz_Mack;
+:locatedIn :Rust;
+dbo:area 950000;
+dbo:buildingEndYear 1975;
+dbo:visitorsPerYear 5.7;
+:hasWebsite "https://www.europapark.de";
+:numberofAttractions 59.
+
+
+###  http://www.amusementpark.com#Eurosat_Cancan_Coaster
+:Eurosat_Cancan_Coaster rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure,
+dbo:RollerCoaster;
+:locatedIn :Europa_Park.
+
+
+###  http://www.amusementpark.com#Eurosat_Coastiality
+:Eurosat_Coastiality rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure,
+dbo:RollerCoaster;
+:locatedIn :Europa_Park.
+
+
+###  http://www.amusementpark.com#Fjord_Rafting
+:Fjord_Rafting rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure,
+dbo:WaterRide;
+:locatedIn :Europa_Park.
+
+
+###  http://www.amusementpark.com#Franz_Mack
+:Franz_Mack rdf:type owl:NamedIndividual,
+:Inventor;
+dbo:deathPlace :Rust;
+dbo:birthDate 1921;
+dbo:deathDate 2010.
+
+
+###  http://www.amusementpark.com#Furius_Baco
+:Furius_Baco rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure,
+dbo:RollerCoaster;
+:locatedIn :PortAventura_Park.
+
+
+###  http://www.amusementpark.com#Gold_River_Adventure
+:Gold_River_Adventure rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure,
+dbo:WaterRide;
+:locatedIn :Walibi_Belgium.
+
+
+###  http://www.amusementpark.com#Hurakan_Condor
+:Hurakan_Condor rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure,
+dbo:RollerCoaster;
+:locatedIn :PortAventura_Park.
+
+
+###  http://www.amusementpark.com#Indiana_Jones_et_le_Temple_du_Péril
+:Indiana_Jones_et_le_Temple_du_Péril rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure,
+dbo:RollerCoaster;
+:locatedIn :Parc_Disneyland.
+
+
+###  http://www.amusementpark.com#Jean-Christophe_Parent
+:Jean-Christophe_Parent rdf:type owl:NamedIndividual,
+:CEO.
+
+
+###  http://www.amusementpark.com#Koffiekopjes
+:Koffiekopjes rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure,
+dbo:RollerCoaster;
+:locatedIn :Europa_Park.
+
+
+###  http://www.amusementpark.com#Marne-la-Vallée
+:Marne-la-Vallée rdf:type owl:NamedIndividual,
+dbo:City;
+:locatedIn dbo:France.
+
+
+###  http://www.amusementpark.com#Montréal
+:Montréal rdf:type owl:NamedIndividual,
+dbo:City;
+:locatedIn dbr:Canada.
+
+
+###  http://www.amusementpark.com#Natacha_Rafalski
+:Natacha_Rafalski rdf:type owl:NamedIndividual,
+:CEO;
+dbo:birthPlace :Montréal;
+dbo:nationality dbr:Canada;
+dbo:birthDate 1968.
+
+
+###  http://www.amusementpark.com#Orbitron
+:Orbitron rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure,
+dbo:RollerCoaster;
+:locatedIn :Parc_Disneyland.
+
+
+###  http://www.amusementpark.com#Parc_Disneyland
+:Parc_Disneyland rdf:type owl:NamedIndividual,
+:AmusementPark,
+:ThemePark;
+dbo:owner :Euro_Disney_SCA;
+:directedBy :Natacha_Rafalski;
+:locatedIn :Marne-la-Vallée;
+:received :Thea_Award;
+dbo:area 55000;
+dbo:buildingEndYear 1992;
+dbo:formerName "Disneyland Paris", "Euro Disneyland";
+dbo:visitorsPerYear 9.843;
+:hasWebsite "www.disneylandparis.com";
+:numberofAttractions 34.
+
+
+###  http://www.amusementpark.com#Pirates_of_the_Caribberan
+:Pirates_of_the_Caribberan rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure,
+dbo:RollerCoaster;
+:locatedIn :Parc_Disneyland.
+
+
+###  http://www.amusementpark.com#PortAventura_Park
+:PortAventura_Park rdf:type owl:NamedIndividual,
+:AmusementPark,
+:ThemePark;
+:locatedIn :Salou;
+:received :Thea_Award;
+dbo:area 52000;
+dbo:buildingEndYear 1995;
+dbo:formerName "Port Aventura", "Universal Studios Port Aventura";
+:hasWebsite "portaventuraworld.com";
+:numberofAttractions 38.
+
+
+###  http://www.amusementpark.com#Pulsar
+:Pulsar rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure,
+dbo:RollerCoaster;
+:locatedIn :Walibi_Belgium.
+
+
+###  http://www.amusementpark.com#Racing_Xperience
+:Racing_Xperience rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure,
+dbo:RollerCoaster;
+:locatedIn dbo:Futuroscope.
+
+
+###  http://www.amusementpark.com#Radja_River
+:Radja_River rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure,
+dbo:WaterRide;
+:locatedIn :Walibi_Belgium.
+
+
+###  http://www.amusementpark.com#Rodolphe_Bouin
+:Rodolphe_Bouin rdf:type owl:NamedIndividual,
+:CEO.
+
+
+###  http://www.amusementpark.com#Rust
+:Rust rdf:type owl:NamedIndividual,
+dbo:City;
+:locatedIn dbr:Germany.
+
+
+###  http://www.amusementpark.com#Salou
+:Salou rdf:type owl:NamedIndividual,
+dbo:City;
+:locatedIn dbr:Spain.
+
+
+###  http://www.amusementpark.com#Shambhala
+:Shambhala rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure,
+dbo:RollerCoaster;
+:locatedIn :PortAventura_Park.
+
+
+###  http://www.amusementpark.com#Stampida
+:Stampida rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure,
+dbo:RollerCoaster;
+:locatedIn :PortAventura_Park.
+
+
+###  http://www.amusementpark.com#Star_Wars_Hyperspace_Mountai
+:Star_Wars_Hyperspace_Mountai rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure,
+dbo:RollerCoaster;
+:locatedIn :Parc_Disneyland.
+
+
+###  http://www.amusementpark.com#Thea_Award
+:Thea_Award rdf:type owl:NamedIndividual,
+dbo:Award.
+
+
+###  http://www.amusementpark.com#Tiki-Waka
+:Tiki-Waka rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure,
+dbo:RollerCoaster;
+:locatedIn :Walibi_Belgium.
+
+
+###  http://www.amusementpark.com#Tomahawk
+:Tomahawk rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure,
+dbo:RollerCoaster;
+:locatedIn :PortAventura_Park.
+
+
+###  http://www.amusementpark.com#Tutuki_Splash
+:Tutuki_Splash rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure,
+dbo:RollerCoaster;
+:locatedIn :PortAventura_Park.
+
+
+###  http://www.amusementpark.com#Waldkirch
+:Waldkirch rdf:type owl:NamedIndividual,
+dbo:City;
+:locatedIn dbr:Germany.
+
+
+###  http://www.amusementpark.com#Walibi_Belgium
+:Walibi_Belgium rdf:type owl:NamedIndividual,
+:AmusementPark,
+:ThemePark,
+:WaterPark;
+dbo:area 620000;
+dbo:capacity 5000;
+dbo:formerName ""@en, "Six Flags Belgium"@fr;
+dbo:mascot "Kangaroo"@en;
+dbo:visitorsPerYear "1.05"^^xsd:float;
+:hasWebsite "https://www.walibi.be"@en;
+:numberofAttractions "41"@en.
+
+[ rdf:type owl:NegativePropertyAssertion;
+   owl:sourceIndividual :Walibi_Belgium;
+   owl:assertionProperty :inventedBy;
+   owl:targetIndividual :Eddy_Meeùs
+ ].
+
+[ rdf:type owl:NegativePropertyAssertion;
+   owl:sourceIndividual :Walibi_Belgium;
+   owl:assertionProperty :locatedIn;
+   owl:targetIndividual :Wavre
+ ].
+
+[ rdf:type owl:NegativePropertyAssertion;
+   owl:sourceIndividual :Walibi_Belgium;
+   owl:assertionProperty dbo:owner;
+   owl:targetIndividual :Compagnie_des_Alpes
+ ].
+
+[ rdf:type owl:NegativePropertyAssertion;
+   owl:sourceIndividual :Walibi_Belgium;
+   owl:assertionProperty dbo:owner;
+   owl:targetIndividual :Jean-Christophe_Parent
+ ].
+
+
+###  http://www.amusementpark.com#Wavre
+:Wavre rdf:type owl:NamedIndividual,
+dbo:City;
+:locatedIn dbr:Belgium.
+
+
+###  http://www.amusementpark.com#Arthur_l'Aventure_4D
+<http://www.amusementpark.com#Arthur_l'Aventure_4D> rdf:type owl:NamedIndividual,
+dbo:ArchitecturalStructure, dbo:RollerCoaster;
+:locatedIn dbo:Futuroscope.
+
+
+###  http://www.amusementpark.com#L'éclair_du_Cervin
+<http://www.amusementpark.com#L'éclair_du_Cervin> rdf:type owl:NamedIndividual;
+:locatedIn :Europa_Park.
+
+
+###  http://www.amusementpark.com#Star_Tour_l'Aventure_Continue
+<http://www.amusementpark.com#Star_Tour_l'Aventure_Continue> rdf:type owl:NamedIndividual, dbo:ArchitecturalStructure, dbo:RollerCoaster;
+:locatedIn :Parc_Disneyland.
+
+
+#################################################################
+#    Annotations
+#################################################################
+
+rdfs:seeAlso <http://www.w3.org/2004/02/skos/core#prefLabel> "see also"@en.
